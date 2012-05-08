@@ -54,12 +54,16 @@ void sensorsAutodetect(void)
 
     // special case for supported gyros - MPU3050 and MPU6050
     if (mpu6050Detect(&acc, &gyro)) { // first, try MPU6050, and re-enable acc (if ADXL345 is missing) since this chip has it built in
+	uartPrint("6050 found\r\n");
         sensorsSet(SENSOR_ACC);
         acc.init();
     } else if (!mpu3050Detect(&gyro)) {
+	uartPrint("gyro not found\r\n");
         // if this fails, we get a beep + blink pattern. we're doomed, no gyro or i2c error.
         failureMode(3);
-    }
+    } else {
+	uartPrint("3050 found\r\n");
+    };
     // this is safe because either mpu6050 or mpu3050 sets it, and in case of fail, none do.
     gyro.init();
     // todo: this is driver specific :(

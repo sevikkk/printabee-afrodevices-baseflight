@@ -70,13 +70,13 @@ typedef struct sensor_t
 #else
  // Afroflight32
 #define LED0_GPIO   GPIOB
-#define LED0_PIN    GPIO_Pin_3
+#define LED0_PIN    GPIO_Pin_12
 #define LED1_GPIO   GPIOB
-#define LED1_PIN    GPIO_Pin_4
-#define BEEP_GPIO   GPIOA
-#define BEEP_PIN    GPIO_Pin_12
+#define LED1_PIN    GPIO_Pin_14
+#define BEEP_GPIO   GPIOB
+#define BEEP_PIN    GPIO_Pin_5
 #define BARO_GPIO   GPIOC
-#define BARO_PIN    GPIO_Pin_13
+#define BARO_PIN    GPIO_Pin_15
 
 #define GYRO
 #define ACC

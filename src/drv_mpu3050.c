@@ -34,6 +34,7 @@ bool mpu3050Detect(sensor_t *gyro)
 {
     bool ack;
 
+    //return false;
     delay(25); // datasheet page 13 says 20ms. other stuff could have been running meanwhile. but we'll be safe
 
     ack = i2cWrite(MPU3050_ADDRESS, MPU3050_SMPLRT_DIV, 0);
