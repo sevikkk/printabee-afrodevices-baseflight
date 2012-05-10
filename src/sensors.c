@@ -53,21 +53,15 @@ void sensorsAutodetect(void)
         bmp085Init();
 
     // special case for supported gyros - MPU3050 and MPU6050
-    if (mpu6050Detect(&acc, &gyro)) { // first, try MPU6050, and re-enable acc (if ADXL345 is missing) since this chip has it built in
-	uartPrint("6050 found\r\n");
-        sensorsSet(SENSOR_ACC);
-        acc.init();
-    } else if (!mpu3050Detect(&gyro)) {
+    if (!l3g4200Detect(&gyro)) {
 	uartPrint("gyro not found\r\n");
         // if this fails, we get a beep + blink pattern. we're doomed, no gyro or i2c error.
         failureMode(3);
     } else {
-	uartPrint("3050 found\r\n");
+	/* uartPrint("l3g4200 found\r\n");*/
     };
     // this is safe because either mpu6050 or mpu3050 sets it, and in case of fail, none do.
     gyro.init();
-    // todo: this is driver specific :(
-    mpu3050Config(cfg.gyro_lpf);
 
     // calculate magnetic declination
     deg = cfg.magDeclination / 100;
@@ -205,6 +199,8 @@ static uint32_t baroUP = 0;
 void Baro_update(void)
 {
     int32_t pressure;
+    int16_t temperature;
+    char buf[10];
 
     if (currentTime < baroDeadline)
         return;
@@ -228,9 +224,20 @@ void Baro_update(void)
             break;
         case 3:
             baroUP = bmp085_get_up();
-            bmp085_get_temperature(baroUT);
+            temperature = bmp085_get_temperature(baroUT);
             pressure = bmp085_get_pressure(baroUP);
             BaroAlt = (1.0f - pow(pressure / 101325.0f, 0.190295f)) * 4433000.0f; // centimeter
+
+	    /*
+	    uartPrint("Baro temp: ");
+	    itoa(temperature, buf, 10);
+	    uartPrint(buf);
+	    uartPrint(" alt: ");
+	    itoa(BaroAlt, buf, 10);
+	    uartPrint(buf);
+	    uartPrint("\r\n");
+	    */
+
             baroState = 0;
             baroDeadline += 5000;
             break;

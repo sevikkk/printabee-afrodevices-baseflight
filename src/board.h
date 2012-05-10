@@ -82,7 +82,6 @@ typedef struct sensor_t
 #define ACC
 #define MAG
 #define BARO
-#define LEDRING
 
 #endif
 
@@ -121,9 +120,7 @@ typedef struct sensor_t
 #include "drv_bmp085.h"
 #include "drv_hmc5883l.h"
 #include "drv_i2c.h"
-#include "drv_ledring.h"
-#include "drv_mpu3050.h"
-#include "drv_mpu6050.h"
+#include "drv_l3g4200.h"
 #include "drv_pwm.h"
 #include "drv_uart.h"
 

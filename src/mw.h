@@ -296,6 +296,7 @@ void buzzer(uint8_t warn_vbat);
 
 // cli
 void cliProcess(void);
+char *itoa(int i, char *a, int r);
 
 // gps
 void gpsInit(uint32_t baudrate);
