@@ -1,4 +1,5 @@
 #include "board.h"
+#include "mw.h"
 
 #define PULSE_1MS       (1000) // 1ms pulse width
 // #define PULSE_PERIOD    (2500) // pulse period (400Hz)
@@ -411,6 +412,15 @@ void pwmWrite(uint8_t channel, uint16_t value)
 
 uint16_t pwmRead(uint8_t channel)
 {
+    char buf[10];
+    /*uartPrint("PWM");
+    itoa(channel, buf, 10);
+    uartPrint(buf);
+    uartPrint(" ");
+    itoa(Inputs[channel].capture, buf, 10);
+    uartPrint(buf);
+    uartPrint("\n\r");
+    */
     return Inputs[channel].capture;
 }
 
