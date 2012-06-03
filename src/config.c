@@ -141,8 +141,8 @@ void checkFirstTime(bool reset)
     cfg.yawdeadband = 0;
     cfg.spektrum_hires = 0;
     cfg.midrc = 1500;
-    cfg.mincheck = 1100;
-    cfg.maxcheck = 1900;
+    cfg.mincheck = 1200;
+    cfg.maxcheck = 1800;
 
     // Motor/ESC/Servo
     cfg.minthrottle = 1150;

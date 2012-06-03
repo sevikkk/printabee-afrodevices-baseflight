@@ -6,7 +6,7 @@
 
 #Code Sourcery current gcc 4.6.x
 #Specify full path below including trailing / to your arm-gcc toolchain unless it's in PATH
-TCHAIN=
+TCHAIN=/opt/CS-arm/bin/
 CC = $(TCHAIN)arm-none-eabi-gcc
 OPT = -Os
 OBJCOPY = $(TCHAIN)arm-none-eabi-objcopy

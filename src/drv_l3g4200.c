@@ -65,15 +65,16 @@ static void l3g4200Init(void)
 static void l3g4200Align(int16_t *gyroData)
 {
     // official direction is RPY
-    gyroData[0] = gyroData[0] / 4;
-    gyroData[1] = gyroData[1] / 4;
-    gyroData[2] = -gyroData[2] / 4;
+    gyroData[0] = gyroData[0] / 40;
+    gyroData[1] = gyroData[1] / 40;
+    gyroData[2] = -gyroData[2] / 40;
 }
 
 // Read 3 gyro values into user-provided buffer. No overrun checking is done.
 static void l3g4200Read(int16_t *gyroData)
 {
     uint8_t buf[6], sbuf[1], tbuf[1];
+    int16_t tmp;
     char abuf[10];
 
     i2cRead(L3G4200_ADDRESS, L3G4200_STATUS_REG, 1, sbuf);
@@ -84,9 +85,9 @@ static void l3g4200Read(int16_t *gyroData)
     i2cRead(L3G4200_ADDRESS, L3G4200_OUT_Y_H, 1, buf + 3);
     i2cRead(L3G4200_ADDRESS, L3G4200_OUT_Z_L, 1, buf + 4);
     i2cRead(L3G4200_ADDRESS, L3G4200_OUT_Z_H, 1, buf + 5);
-    gyroData[0] = (buf[1] << 8) | buf[0];
-    gyroData[1] = (buf[3] << 8) | buf[2];
-    gyroData[2] = (buf[5] << 8) | buf[4];
+    gyroData[0] = ((int16_t)(buf[1]) << 8) | (int16_t)(buf[0]);
+    gyroData[1] = ((int16_t)(buf[3]) << 8) | (int16_t)(buf[2]);
+    gyroData[2] = ((int16_t)(buf[5]) << 8) | (int16_t)(buf[4]);
 
     /*
     uartPrint("l3g: ");
